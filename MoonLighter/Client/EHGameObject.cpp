@@ -30,7 +30,8 @@ namespace EH
 			comp->FixedUpdate();
 		}
 
-		mScript->FixedUpdate();
+		if (mScript != nullptr)
+			mScript->FixedUpdate();
 	}
 
 	void GameObject::Update()
@@ -43,7 +44,8 @@ namespace EH
 			comp->Update();
 		}
 
-		mScript->Update();
+		if(mScript!=nullptr)
+			mScript->Update();
 		/*GetDevice()->GetGPUContext().Get()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		GetDevice()->GetGPUContext().Get()->IASetInputLayout(mInputLayout);
 		GetDevice()->GetGPUContext().Get()->VSSetShader(mVertexShader, nullptr, 0);
@@ -62,6 +64,7 @@ namespace EH
 		}
 
 
-		mScript->Render();
+		if (mScript != nullptr)
+			mScript->Render();
 	}
 }

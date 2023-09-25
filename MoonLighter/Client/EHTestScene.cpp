@@ -28,6 +28,15 @@ namespace EH
 
 		Player* script = new Player();
 		testobject->SetScript(script);
+
+		GameObject* testobject2 = Object::Instantiate<GameObject>(enums::eLayerType::Bullet);
+
+		temp = testobject2->AddComponent<MeshRenderer>();
+		temp->SetMesh(Resources::Find<Mesh>(L"TriangleMesh"));
+		temp->SetShader(Resources::Find<Shader>(L"TriangleShader"));
+
+		tr = testobject2->AddComponent<Transform>();
+		tr->SetPosition(Math::Vector3(2.f, 2.f, 0.f));
 	}
 
 	void TestScene::Update()

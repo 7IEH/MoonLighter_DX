@@ -9,6 +9,7 @@
 #include "EHMeshRenderer.h"
 #include "EHResources.h"
 #include "EHSceneManager.h"
+#include "EHCamera.h"
 
 namespace EH
 {
@@ -27,7 +28,9 @@ namespace EH
 		GetDevice() = mGraphicsDevice.get();
 
 		renderer::Initialize();
+		Camera::Initialize();
 		SceneManager::Initialize();
+		
 	}
 
 	void Application::Run()
@@ -41,6 +44,7 @@ namespace EH
 	{
 		Time::Update();
 		Input::Update();
+		Camera::Update();
 		SceneManager::Update();
 	}
 

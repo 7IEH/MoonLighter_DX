@@ -16,13 +16,13 @@ namespace EH::renderer
 	{
 		std::vector<Vertex> vertexes;
 		vertexes.resize(3);
-		vertexes[0].pos = Math::Vector3(0.f, 0.5f, 0.F);
+		vertexes[0].pos = Math::Vector3(0.f, 0.1f, 0.f);
 		vertexes[0].Color = Math::Vector4(1.f, 0.f, 0.f, 0.f);
 
-		vertexes[1].pos = Math::Vector3(0.5f, -0.5f, 0.f);
+		vertexes[1].pos = Math::Vector3(0.1f, -0.1f, 0.f);
 		vertexes[1].Color = Math::Vector4(0.f, 1.f, 0.f, 0.f);
 
-		vertexes[2].pos = Math::Vector3(-0.5f, -0.5f, 0.f);
+		vertexes[2].pos = Math::Vector3(-0.1f, -0.1f, 0.f);
 		vertexes[2].Color = Math::Vector4(0.f, 0.f, 1.f, 0.f);
 
 		/*std::vector<UINT> indexes;

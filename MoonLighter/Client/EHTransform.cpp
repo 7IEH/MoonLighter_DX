@@ -2,6 +2,7 @@
 #include "EHGameObject.h"
 #include "EHConstantBuffer.h"
 #include "EHRenderer.h"
+#include "EHCamera.h"
 
 namespace EH
 {
@@ -38,12 +39,20 @@ namespace EH
 
     void Transform::SetConstantBuffer()
     {
+        
         ConstantBuffer* cb = renderer::constantBuffers[(UINT)enums::CBYTES::Transform];
         renderer::CBUFFER data;
-        data.pos = mPosition;
+        Math::Vector3 temp;
+        temp.x = mPosition.x;
+        temp.y = mPosition.y;
+        temp.z = mPosition.z;  
+        temp = Camera::CaculatePos(temp);
+        data.pos = temp;
         data.pad1 = 0;
         data.scale = mScale;
         data.pad2 = 0;
+
+
 
         cb->Bind(&data);
         cb->SetPipline(graphics::ShaderStage::VS);
