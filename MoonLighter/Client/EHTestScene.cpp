@@ -4,6 +4,9 @@
 #include "EHMeshRenderer.h"
 #include "EHResources.h"
 #include "EHPlayer.h"
+#include "EHCollisionManager.h"
+#include "EHRigidbody.h"
+#include "EHGround.h"
 
 namespace EH
 {
@@ -26,6 +29,11 @@ namespace EH
 		Transform* tr = testobject->AddComponent<Transform>();
 		tr->SetPosition(Math::Vector3(0.f, 0.5f, 0.f));
 
+		Collider* col = testobject->AddComponent<Collider>();
+		col->SetScale(Math::Vector3(0.2f, 0.2f, 0.f));
+
+		Rigidbody* rigid = testobject->AddComponent<Rigidbody>();
+
 		Player* script = new Player();
 		testobject->SetScript(script);
 
@@ -36,7 +44,15 @@ namespace EH
 		temp->SetShader(Resources::Find<Shader>(L"TriangleShader"));
 
 		tr = testobject2->AddComponent<Transform>();
-		tr->SetPosition(Math::Vector3(2.f, 2.f, 0.f));
+		tr->SetPosition(Math::Vector3(0.f, -0.5f, 0.f));
+
+		col = testobject2->AddComponent<Collider>();
+		col->SetScale(Math::Vector3(1.f, 0.5f, 0.f));
+
+		Ground* script2 = new Ground();
+		testobject2->SetScript(script2);
+
+		CollisionManager::CollisionLayerCheck(enums::eLayerType::Player, enums::eLayerType::Bullet,true);
 	}
 
 	void TestScene::Update()

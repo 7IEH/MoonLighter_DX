@@ -10,6 +10,7 @@
 #include "EHResources.h"
 #include "EHSceneManager.h"
 #include "EHCamera.h"
+#include "EHCollisionManager.h"
 
 namespace EH
 {
@@ -30,7 +31,6 @@ namespace EH
 		renderer::Initialize();
 		Camera::Initialize();
 		SceneManager::Initialize();
-		
 	}
 
 	void Application::Run()
@@ -46,6 +46,7 @@ namespace EH
 		Input::Update();
 		Camera::Update();
 		SceneManager::Update();
+		CollisionManager::Update();
 	}
 
 	void Application::FixedUpdate()

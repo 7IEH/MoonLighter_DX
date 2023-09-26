@@ -7,6 +7,14 @@
 
 namespace EH
 {
+	/*class CollisionEvent
+	{
+	protected:
+		virtual void OnCollisionEnter(class Collider* other) {}
+		virtual void OnCollisionStay(class Collider* other) {}
+		virtual void OnCollisionExit(class Collider* other) {}
+	};*/
+
 	class GameObject
 	{
 	public:
@@ -17,6 +25,10 @@ namespace EH
 		virtual void FixedUpdate();
 		virtual void Update();
 		virtual void Render();
+
+		void OnCollisionEnter(class Collider* other);
+		void OnCollisionStay(class Collider* other);
+		void OnCollisionExit(class Collider* other);
 
 		template <typename T>
 		T* AddComponent()
@@ -45,6 +57,8 @@ namespace EH
 			mScript = script;
 			mScript->SetOwenr(this);
 		}
+
+		Script* GetScript() { return mScript; }
 
 	private:
 		std::vector<Component*> mComponents;

@@ -147,6 +147,7 @@
     <ClInclude Include="EHEntity.h" />
     <ClInclude Include="EHGameObject.h" />
     <ClInclude Include="EHGraphicDevice.h" />
+    <ClInclude Include="EHGround.h" />
     <ClInclude Include="EHInput.h" />
     <ClInclude Include="EHLayer.h" />
     <ClInclude Include="EHMath.h" />
@@ -181,6 +182,7 @@
     <ClCompile Include="EHEntity.cpp" />
     <ClCompile Include="EHGameObject.cpp" />
     <ClCompile Include="EHGraphicDevice.cpp" />
+    <ClCompile Include="EHGround.cpp" />
     <ClCompile Include="EHInput.cpp" />
     <ClCompile Include="EHLayer.cpp" />
     <ClCompile Include="EHMesh.cpp" />

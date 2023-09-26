@@ -36,6 +36,8 @@ namespace EH::enums
 		Transform
 		, MeshRenderer
 		, Script
+		, Collider
+		, Rigidbody
 		, End
 	};
 
