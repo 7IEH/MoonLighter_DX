@@ -15,8 +15,7 @@
 #pragma comment(lib,"d3d11.lib")
 #include<d3dcompiler.h>
 #pragma comment(lib, "d3dcompiler.lib")
-
-#include<DirectXTex.h>
+#include <DirectXTex.h>
 
 #include <string>
 #include <assert.h>
@@ -40,7 +39,6 @@ namespace EH::enums
 		, Rigidbody
 		, End
 	};
-
 
 	enum class eLayerType
 	{

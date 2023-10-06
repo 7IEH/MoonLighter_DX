@@ -21,12 +21,24 @@ namespace EH::renderer
 		int pad2;
 	};
 
+	struct TextureVertex
+	{
+		Math::Vector3 pos;
+		Math::Vector2 uv;
+	};
+
 	void Initialize();
 	void Release();
 
+	// Mesh
 	extern Mesh* mesh;
 	extern Mesh* mesh1;
+	extern Mesh* texturemesh;
+
+	// Shader
 	extern Shader* shader;
+	extern Shader* textureshader;
+
 	extern ConstantBuffer* constantBuffers[];
 }
 

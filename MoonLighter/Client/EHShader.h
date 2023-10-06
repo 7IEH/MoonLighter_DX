@@ -12,8 +12,11 @@ namespace EH
 
 		virtual HRESULT Load(const std::wstring& path) override;
 
+		void CreateSamplerState();
 		void Create(const graphics::ShaderStage stage, const std::wstring& file, const std::string& funcName);
 		void Update();
+
+		void ResourceViewCreate(std::wstring filename);
 
 		ID3D11InputLayout* GetInputLayout()
 		{
@@ -48,7 +51,8 @@ namespace EH
 		Microsoft::WRL::ComPtr<ID3D11GeometryShader> mGS;
 		Microsoft::WRL::ComPtr<ID3D11PixelShader> mPS;
 
-		//Microsoft::WRL::ComPtr<ID3D11SamplerState> mSampleState;
+		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> mResourceView;
+		Microsoft::WRL::ComPtr<ID3D11SamplerState> mSampleState;
 	};
 }
 

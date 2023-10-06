@@ -19,6 +19,29 @@ namespace EH
 		return E_NOTIMPL;
 	}
 
+	void Shader::CreateSamplerState()
+	{
+		{
+			D3D11_SAMPLER_DESC samplerDesc;
+			samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+			samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+			samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+			samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+			samplerDesc.MipLODBias = 0.0f;
+			samplerDesc.MaxAnisotropy = 1;
+			samplerDesc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+			samplerDesc.BorderColor[0] = 0;
+			samplerDesc.BorderColor[1] = 0;
+			samplerDesc.BorderColor[2] = 0;
+			samplerDesc.BorderColor[3] = 0;
+			samplerDesc.MinLOD = 0;
+			samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+			HRESULT hResult = GetDevice()->GetGPUDevice()->CreateSamplerState(&samplerDesc, &mSampleState);
+			assert(SUCCEEDED(hResult));
+		}
+	}
+
 	void Shader::Create(const graphics::ShaderStage stage, const std::wstring& file, const std::string& funcName)
 	{
 		/*std::filesystem::path path
@@ -91,28 +114,68 @@ namespace EH
 			);
 			assert(SUCCEEDED(hResult));
 		}
-
-		/*{
-			D3D11_SAMPLER_DESC samplerDesc;
-			samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-			samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-			samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-			samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-			samplerDesc.MipLODBias = 0.0f;
-			samplerDesc.MaxAnisotropy = 1;
-			samplerDesc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
-			samplerDesc.BorderColor[0] = 0;
-			samplerDesc.BorderColor[1] = 0;
-			samplerDesc.BorderColor[2] = 0;
-			samplerDesc.BorderColor[3] = 0;
-			samplerDesc.MinLOD = 0;
-			samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
-
-			HRESULT hResult = GetDevice()->GetGPUDevice()->CreateSamplerState(&samplerDesc, &mSampleState);
-			assert(SUCCEEDED(hResult));
-		}*/
 	}
 
+	void Shader::ResourceViewCreate(std::wstring filename)
+	{
+		// 스크래치 이미지 생성.
+		DirectX::ScratchImage image;
+		HRESULT result = DirectX::LoadFromWICFile(filename.c_str(), DirectX::WIC_FLAGS_NONE, NULL, image);
+
+		// 오류 검사.
+		if (FAILED(result))
+		{
+			MessageBox(nullptr, L"스크래치 이미지 로드 실패", L"오류", 0);
+			//throw std::exception("스크래치 이미지 로드 실패");
+			return;
+		}
+
+		// 텍스쳐 생성.
+		Microsoft::WRL::ComPtr<ID3D11Texture2D> texture;
+		result = DirectX::CreateTexture(
+			GetDevice()->GetGPUDevice().Get(),
+			image.GetImages(),
+			image.GetImageCount(),
+			image.GetMetadata(),
+			(ID3D11Resource**)texture.GetAddressOf()
+		);
+
+		// 오류 검사.
+		if (FAILED(result))
+		{
+			MessageBox(nullptr, L"텍스처 생성 실패", L"오류", 0);
+			//throw std::exception("텍스처 생성 실패");
+			return;
+		}
+
+		// 쉐이더 리소스 뷰 생성.
+		D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
+		ZeroMemory(&srvDesc, sizeof(srvDesc));
+
+		srvDesc.ViewDimension = D3D10_SRV_DIMENSION_TEXTURE2D;
+		srvDesc.Texture2D.MostDetailedMip = 0;
+		srvDesc.Texture2D.MipLevels = 1;
+
+		D3D11_TEXTURE2D_DESC textureDesc;
+		texture->GetDesc(&textureDesc);
+
+		srvDesc.Format = textureDesc.Format;
+
+		ID3D11ShaderResourceView* shaderResourceView;
+		result = GetDevice()->GetGPUDevice().Get()->CreateShaderResourceView(
+			texture.Get(),
+			&srvDesc,
+			&mResourceView
+		);
+
+		// 오류 검사.
+		if (FAILED(result))
+		{
+			MessageBox(nullptr, L"셰이더 리소스 뷰 생성 실패", L"오류", 0);
+			//throw std::exception("셰이더 리소스 뷰 생성 실패");
+			return;
+		}
+	}
 
 	void Shader::Update()
 	{
@@ -120,6 +183,7 @@ namespace EH
 		GetDevice()->GetGPUContext().Get()->IASetInputLayout(mInputLayout.Get());
 		GetDevice()->GetGPUContext().Get()->VSSetShader(mVS.Get(), nullptr, 0);
 		GetDevice()->GetGPUContext().Get()->PSSetShader(mPS.Get(), nullptr, 0);
-		//GetDevice()->GetGPUContext()->PSSetSamplers(0, 1, &mSampleState);
+		GetDevice()->GetGPUContext().Get()->PSSetShaderResources(0, 1, mResourceView.GetAddressOf());
+		GetDevice()->GetGPUContext().Get()->PSSetSamplers(0, 1, &mSampleState);
 	}
 }

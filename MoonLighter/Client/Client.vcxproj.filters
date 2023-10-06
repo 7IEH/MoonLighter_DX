@@ -318,5 +318,11 @@
     <FxCompile Include="TriangleVS.hlsl">
       <Filter>Shader\Vertex Shader</Filter>
     </FxCompile>
+    <FxCompile Include="TexturePS.hlsl">
+      <Filter>Shader\Pixel Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="TextureVS.hlsl">
+      <Filter>Shader\Vertex Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

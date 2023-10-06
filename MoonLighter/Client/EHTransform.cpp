@@ -45,14 +45,13 @@ namespace EH
         Math::Vector3 temp;
         temp.x = mPosition.x;
         temp.y = mPosition.y;
-        temp.z = mPosition.z;  
+        temp.z = mPosition.z;
+
         temp = Camera::CaculatePos(temp);
         data.pos = temp;
         data.pad1 = 0;
         data.scale = mScale;
         data.pad2 = 0;
-
-
 
         cb->Bind(&data);
         cb->SetPipline(graphics::ShaderStage::VS);

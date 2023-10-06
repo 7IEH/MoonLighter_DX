@@ -17,10 +17,10 @@ namespace EH
 		return E_NOTIMPL;
 	}
 
-	bool Mesh::CreateVertexBuffer(void* data, UINT Count)
+	bool Mesh::CreateVertexBuffer(void* data, UINT Count, unsigned long long size)
 	{
 		mIndexCount = Count;
-		mVBDesc.ByteWidth = sizeof(renderer::Vertex) * Count;
+		mVBDesc.ByteWidth = size * Count;
 		mVBDesc.Usage = D3D11_USAGE_IMMUTABLE;
 		mVBDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 		mVBDesc.CPUAccessFlags = 0;
@@ -36,7 +36,7 @@ namespace EH
 
 	void Mesh::BindBuffer()
 	{
-		UINT stride = sizeof(renderer::Vertex);
+		UINT stride = sizeof(renderer::TextureVertex);
 		UINT offset = 0;
 		GetDevice()->GetGPUContext()->IASetVertexBuffers(0, 1, mVertexBuffer.GetAddressOf(), &stride, &offset);
 	}

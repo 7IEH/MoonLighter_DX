@@ -80,6 +80,8 @@ namespace EH
 			hResult = mDevice->CreateRenderTargetView(mFrameBuffer.Get(), 0, mRenderTargetView.GetAddressOf());
 			assert(SUCCEEDED(hResult));
 
+			
+
 			// 그 백 버퍼를 대상으로하는 view 객체를 생성합니다.
 			// 마지막 매개 변수를 통해 생성된 view 객체를 반환 받습니다.
 		}
