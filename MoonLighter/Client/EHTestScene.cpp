@@ -28,9 +28,10 @@ namespace EH
 
 		Transform* tr = testobject->AddComponent<Transform>();
 		tr->SetPosition(Math::Vector3(0.f, 0.5f, 0.f));
+		tr->SetScale(Math::Vector3(0.1f, 0.1f, 0.f));
 
 		Collider* col = testobject->AddComponent<Collider>();
-		col->SetScale(Math::Vector3(0.2f, 0.2f, 0.f));
+		col->SetScale(Math::Vector3(0.1f, 0.2f, 0.f));
 
 		Rigidbody* rigid = testobject->AddComponent<Rigidbody>();
 
@@ -44,10 +45,11 @@ namespace EH
 		temp->SetShader(Resources::Find<Shader>(L"TriangleShader"));
 
 		tr = testobject2->AddComponent<Transform>();
-		tr->SetPosition(Math::Vector3(0.f, -0.5f, 0.f));
+		tr->SetPosition(Math::Vector3(0.f, -1.f, 0.f));
+		tr->SetScale(Math::Vector3(1.f, 0.5f, 0.f));
 
 		col = testobject2->AddComponent<Collider>();
-		col->SetScale(Math::Vector3(1.f, 0.5f, 0.f));
+		col->SetScale(Math::Vector3(1.f, 1.f, 0.f));
 
 		Ground* script2 = new Ground();
 		testobject2->SetScript(script2);

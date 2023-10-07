@@ -39,7 +39,6 @@ namespace EH
 
     void Transform::SetConstantBuffer()
     {
-        
         ConstantBuffer* cb = renderer::constantBuffers[(UINT)enums::CBYTES::Transform];
         renderer::CBUFFER data;
         Math::Vector3 temp;

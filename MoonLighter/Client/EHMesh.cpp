@@ -5,6 +5,7 @@
 namespace EH
 {
 	Mesh::Mesh()
+		: mbufferType(buffertype::None)
 	{
 	}
 
@@ -36,9 +37,18 @@ namespace EH
 
 	void Mesh::BindBuffer()
 	{
-		UINT stride = sizeof(renderer::TextureVertex);
-		UINT offset = 0;
-		GetDevice()->GetGPUContext()->IASetVertexBuffers(0, 1, mVertexBuffer.GetAddressOf(), &stride, &offset);
+		if (mbufferType == buffertype::Vertex)
+		{
+			UINT stride = sizeof(renderer::Vertex);
+			UINT offset = 0;
+			GetDevice()->GetGPUContext()->IASetVertexBuffers(0, 1, mVertexBuffer.GetAddressOf(), &stride, &offset);
+		}
+		else if (mbufferType == buffertype::Texture)
+		{
+			UINT stride = sizeof(renderer::TextureVertex);
+			UINT offset = 0;
+			GetDevice()->GetGPUContext()->IASetVertexBuffers(0, 1, mVertexBuffer.GetAddressOf(), &stride, &offset);
+		}
 	}
 
 	void Mesh::Render()

@@ -23,7 +23,7 @@ VS_Output vs_main(VS_Input input)
 {
     VS_Output output;
     output.position = float4(input.pos * cbscale.xyz, 1.f);
-    output.position.xyz += cbpos;
+    output.position.xyz += cbpos.xyz;
     output.uv = input.uv;
     
     return output;

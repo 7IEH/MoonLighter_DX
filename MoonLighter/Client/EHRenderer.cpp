@@ -19,22 +19,22 @@ namespace EH::renderer
 	{
 		std::vector<Vertex> vertexes;
 		vertexes.resize(6);
-		vertexes[0].pos = Math::Vector3(0.1f, 0.1f, 0.f);
+		vertexes[0].pos = Math::Vector3(1.f, 1.f, 0.f);
 		vertexes[0].Color = Math::Vector4(1.f, 0.f, 0.f, 0.f);
 
-		vertexes[1].pos = Math::Vector3(0.1f, -0.1f, 0.f);
+		vertexes[1].pos = Math::Vector3(1.f, -1.f, 0.f);
 		vertexes[1].Color = Math::Vector4(0.f, 1.f, 0.f, 0.f);
 
-		vertexes[2].pos = Math::Vector3(-0.1f, 0.1f, 0.f);
+		vertexes[2].pos = Math::Vector3(-1.f, 1.f, 0.f);
 		vertexes[2].Color = Math::Vector4(0.f, 0.f, 1.f, 0.f);
 
-		vertexes[3].pos = Math::Vector3(0.1f, -0.1f, 0.f);
+		vertexes[3].pos = Math::Vector3(1.f, -1.f, 0.f);
 		vertexes[3].Color = Math::Vector4(1.f, 0.f, 0.f, 0.f);
 
-		vertexes[4].pos = Math::Vector3(-0.1f, -0.1f, 0.f);
+		vertexes[4].pos = Math::Vector3(-1.f, -1.f, 0.f);
 		vertexes[4].Color = Math::Vector4(0.f, 1.f, 0.f, 0.f);
 
-		vertexes[5].pos = Math::Vector3(-0.1f, 0.1f, 0.f);
+		vertexes[5].pos = Math::Vector3(-1.f, 1.f, 0.f);
 		vertexes[5].Color = Math::Vector4(0.f, 0.f, 1.f, 0.f);
 
 		/*std::vector<UINT> indexes;
@@ -47,6 +47,7 @@ namespace EH::renderer
 		indexes.push_back(2);*/
 
 		mesh->CreateVertexBuffer(vertexes.data(), 6 ,sizeof(Vertex));
+		mesh->SetBufferType(buffertype::Vertex);
 		Resources::Insert(L"TriangleMesh", mesh);
 
 		vertexes[0].pos = Math::Vector3(0.f, 0.1f, 0.F);
@@ -68,30 +69,32 @@ namespace EH::renderer
 		indexes.push_back(2);*/
 
 		mesh1->CreateVertexBuffer(vertexes.data(), 3, sizeof(Vertex));
+		mesh1->SetBufferType(buffertype::Vertex);
 		Resources::Insert(L"BulletMesh", mesh1);
 
 		std::vector<TextureVertex> texturevertex;
 		texturevertex.resize(6);
 
-		texturevertex[0].pos = Math::Vector3(0.1f, 0.1f, 0.f);
+		texturevertex[0].pos = Math::Vector3(1.f, 1.f, 0.f);
 		texturevertex[0].uv = Math::Vector2(1.f,0.f);
 
-		texturevertex[1].pos = Math::Vector3(0.1f, -0.1f, 0.f);
+		texturevertex[1].pos = Math::Vector3(1.f, -1.f, 0.f);
 		texturevertex[1].uv = Math::Vector2(1.f,1.f);
 
-		texturevertex[2].pos = Math::Vector3(-0.1f, 0.1f, 0.f);
+		texturevertex[2].pos = Math::Vector3(-1.f, 1.f, 0.f);
 		texturevertex[2].uv = Math::Vector2(0.f, 0.f);
 
-		texturevertex[3].pos = Math::Vector3(0.1f, -0.1f, 0.f);
+		texturevertex[3].pos = Math::Vector3(1.f, -1.f, 0.f);
 		texturevertex[3].uv = Math::Vector2(1.f, 1.f);
 
-		texturevertex[4].pos = Math::Vector3(-0.1f, -0.1f, 0.f);
+		texturevertex[4].pos = Math::Vector3(-1.f, -1.f, 0.f);
 		texturevertex[4].uv = Math::Vector2(0.f,1.f);
 
-		texturevertex[5].pos = Math::Vector3(-0.1f, 0.1f, 0.f);
+		texturevertex[5].pos = Math::Vector3(-1.f, 1.f, 0.f);
 		texturevertex[5].uv = Math::Vector2(0.f, 0.f);
 
 		texturemesh->CreateVertexBuffer(texturevertex.data(), 6, sizeof(TextureVertex));
+		texturemesh->SetBufferType(buffertype::Texture);
 		Resources::Insert(L"TextureMesh", texturemesh);
 
 		constantBuffers[(UINT)enums::CBYTES::Transform] = new ConstantBuffer();
