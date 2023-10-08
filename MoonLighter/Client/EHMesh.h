@@ -20,6 +20,7 @@ namespace EH
 		virtual HRESULT Load(const std::wstring& path) override;
 
 		bool CreateVertexBuffer(void* data, UINT Count, unsigned long long size);
+		bool CreateIndexBuffer(void* data, UINT Count);
 
 		void BindBuffer();
 		void Render();

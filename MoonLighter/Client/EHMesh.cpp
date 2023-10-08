@@ -35,6 +35,24 @@ namespace EH
 		return true;
 	}
 
+	bool Mesh::CreateIndexBuffer(void* data, UINT Count)
+	{
+
+		mIndexCount = Count;
+		mIBDesc.ByteWidth = sizeof(UINT) * Count;
+		mIBDesc.BindFlags = D3D11_BIND_FLAG::D3D11_BIND_INDEX_BUFFER;
+		mIBDesc.Usage = D3D11_USAGE_DEFAULT;
+		mIBDesc.CPUAccessFlags = 0;
+
+		D3D11_SUBRESOURCE_DATA subData = {};
+		subData.pSysMem = data;
+
+		if (!(GetDevice()->GetGPUDevice()->CreateBuffer(&mIBDesc, &subData, mIndexBuffer.GetAddressOf())))
+			return false;
+
+		return true;
+	}
+
 	void Mesh::BindBuffer()
 	{
 		if (mbufferType == buffertype::Vertex)
@@ -42,6 +60,7 @@ namespace EH
 			UINT stride = sizeof(renderer::Vertex);
 			UINT offset = 0;
 			GetDevice()->GetGPUContext()->IASetVertexBuffers(0, 1, mVertexBuffer.GetAddressOf(), &stride, &offset);
+			GetDevice()->GetGPUContext()->IASetIndexBuffer(mIndexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0);
 		}
 		else if (mbufferType == buffertype::Texture)
 		{

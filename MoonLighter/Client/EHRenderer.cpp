@@ -18,7 +18,7 @@ namespace EH::renderer
 	void LoadBuffer()
 	{
 		std::vector<Vertex> vertexes;
-		vertexes.resize(6);
+		vertexes.resize(4);
 		vertexes[0].pos = Math::Vector3(1.f, 1.f, 0.f);
 		vertexes[0].Color = Math::Vector4(1.f, 0.f, 0.f, 0.f);
 
@@ -28,29 +28,24 @@ namespace EH::renderer
 		vertexes[2].pos = Math::Vector3(-1.f, 1.f, 0.f);
 		vertexes[2].Color = Math::Vector4(0.f, 0.f, 1.f, 0.f);
 
-		vertexes[3].pos = Math::Vector3(1.f, -1.f, 0.f);
+		vertexes[3].pos = Math::Vector3(-1.f, -1.f, 0.f);
 		vertexes[3].Color = Math::Vector4(1.f, 0.f, 0.f, 0.f);
 
-		vertexes[4].pos = Math::Vector3(-1.f, -1.f, 0.f);
-		vertexes[4].Color = Math::Vector4(0.f, 1.f, 0.f, 0.f);
-
-		vertexes[5].pos = Math::Vector3(-1.f, 1.f, 0.f);
-		vertexes[5].Color = Math::Vector4(0.f, 0.f, 1.f, 0.f);
-
-		/*std::vector<UINT> indexes;
+		std::vector<UINT> indexes;
 		indexes.push_back(0);
 		indexes.push_back(2);
 		indexes.push_back(3);
 
-		indexes.push_back(0);
 		indexes.push_back(1);
-		indexes.push_back(2);*/
+		indexes.push_back(2);
+		indexes.push_back(3);
 
-		mesh->CreateVertexBuffer(vertexes.data(), 6 ,sizeof(Vertex));
+		mesh->CreateVertexBuffer(vertexes.data(), 4 ,sizeof(Vertex));
+		mesh->CreateIndexBuffer(indexes.data(), indexes.size());
 		mesh->SetBufferType(buffertype::Vertex);
 		Resources::Insert(L"TriangleMesh", mesh);
 
-		vertexes[0].pos = Math::Vector3(0.f, 0.1f, 0.F);
+		vertexes[0].pos = Math::Vector3(0.f, 0.1f, 0.f);
 		vertexes[0].Color = Math::Vector4(1.f, 0.f, 0.f, 0.f);
 
 		vertexes[1].pos = Math::Vector3(0.1f, -0.1f, 0.f);
